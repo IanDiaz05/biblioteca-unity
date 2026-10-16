@@ -2844,9 +2844,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad16660186faa34c8688000c67b6f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleFPSController
-  moveSpeed: 5
+  moveSpeed: 8
+  jumpHeight: 1.2
   gravity: -9.81
-  mouseSensitivity: 2
+  mouseSensitivity: 0.3
   playerCamera: {fileID: 330585545}
   eyeHeight: 1.6
   eyeForwardOffset: 0.2
