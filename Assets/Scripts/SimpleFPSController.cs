@@ -17,12 +17,26 @@ public class SimpleFPSController : MonoBehaviour
     public float eyeForwardOffset = 0.2f;
 
     private CharacterController controller;
+    private Animator animator;
     private float pitch = 0f;
     private float verticalVelocity = 0f;
+
+    private bool HasParam(string paramName)
+    {
+        if (animator == null || animator.runtimeAnimatorController == null)
+            return false;
+        foreach (var p in animator.parameters)
+        {
+            if (p.name == paramName)
+                return true;
+        }
+        return false;
+    }
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         if (playerCamera == null)
             playerCamera = GetComponentInChildren<Camera>();
         if (playerCamera == null)
@@ -73,6 +87,9 @@ public class SimpleFPSController : MonoBehaviour
         }
         Vector3 move = transform.right * h + transform.forward * v;
         if (move.sqrMagnitude > 1f) move.Normalize();
+        bool isMoving = new Vector2(h, v).sqrMagnitude > 0.01f;
+        if (animator != null && animator.runtimeAnimatorController != null && HasParam("isWalking"))
+            animator.SetBool("isWalking", isMoving);
         move *= moveSpeed;
 
         // Gravedad + salto con espacio
